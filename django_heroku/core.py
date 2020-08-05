@@ -96,7 +96,10 @@ def settings(config, *, db_colors=False, databases=True, test_runner=True, stati
         config['STATIC_URL'] = '/static/'
 
         # Ensure STATIC_ROOT exists.
-        os.makedirs(config['STATIC_ROOT'], exist_ok=True)
+        try:
+            os.makedirs(config['STATIC_ROOT'], exist_ok=True)
+        except OSError:
+            pass
 
         # Insert Whitenoise Middleware.
         try:
